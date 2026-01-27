@@ -15,7 +15,7 @@ This challenge is divided into four milestones, all of which are graded componen
 
 1. Ramp Up: Master the state-of-the-art for LABS via a scaffolded tutorial.
 2. Research & Plan: Perform due diligence to design a custom quantum strategy and acceleration plan.
-3. Build: Validate your algorithm on a CPU in qbraid, then migrate to Brev.dev to deploy full GPU acceleration.
+3. Build: Validate your algorithm on a CPU in qbraid, then migrate to Brev to deploy full GPU acceleration.
 4. Showcase and Retrospective: Present your solution, performance metrics, and your AI-driven workflow.
 
 ## Logistics
@@ -25,8 +25,8 @@ In this challenge, you will mimic a real-world R&D pipeline, moving from rapid p
 * **Phase 1 (Prototyping): qbraid**
     For the "Ramp Up" and initial CPU validation, you will work on Milestones 1 and 2 in qbraid. This is your "Dev Environment"—a zero-setup, pre-configured cudaq sandbox that allows you to focus entirely on mastering the algorithm and logic without worrying about infrastructure overhead.
 
-* **Phase 2 (Acceleration): Brev.dev.**
-    Once your logic is validated, you will "graduate" your code to **Brev.dev** to complete Milestone 3 and 4. Brev provides on-demand access to a wide variety of NVIDIA GPU architectures (L4s, T4s, A100s, ...). You will use this platform to test your solution across different hardware configurations and unlock full GPU acceleration.
+* **Phase 2 (Acceleration): Brev**
+    Once your logic is validated, you will "graduate" your code to Brev to complete Milestone 3 and 4. Brev provides on-demand access to a wide variety of NVIDIA GPU architectures (L4s, T4s, A100s, ...). You will use this platform to test your solution across different hardware configurations and unlock full GPU acceleration.
 
 ---
 
@@ -83,7 +83,7 @@ Assign the following roles to act as the "Person in Charge" (PIC) for each domai
 
 * **GPU Acceleration PIC**
      * **Role:** You lead the GPU acceleration. You are the bridge between the code and the hardware.
-     * **Deliverable:** You own the migration to Brev.dev and the selection of GPU architectures. Crucially, you are responsible for Resource Management: you must decide which GPU to use (e.g., L4 vs. A100) based on cost-efficiency and ensure the team does not burn through the $20 credit by leaving instances running idle ("Zombie Instances").
+     * **Deliverable:** You own the migration to Brev and the selection of GPU architectures. Crucially, you are responsible for Resource Management: you must decide which GPU to use (e.g., L4 vs. A100) based on cost-efficiency and ensure the team does not burn through the $20 credit by leaving instances running idle ("Zombie Instances").
 
 
 * **Quality Assurance PIC**
@@ -139,7 +139,7 @@ The **Project Lead** is responsible for submitting the link, but the document re
 4. **The Verification Plan (Written by QA PIC):** Detail your strategy for Unit Tests and correctness checks (from Section 3).
 5. **The Execution Strategy (Written by Tech Marketing PIC):** Define exactly which graphs you will plot (e.g., "Time vs. N"), what your success metrics are, and how you will visualize them.
 
-**Once your PRD is submitted and approved by a mentor, you will receive your Brev.dev credit allocation needed to complete Milestone 3, Step B. You may begin Step A of Milestone 3 in the interim.**
+**Once your PRD is submitted and approved by a mentor, you will receive your Brev credit allocation needed to complete Milestone 3, Step B. You may begin Step A of Milestone 3 in the interim.**
 
 ## Milestone 3: Build
 
@@ -158,7 +158,7 @@ Implement your chosen custom quantum algorithm (from the PRD in Milestone 2) usi
 
 Now that your logic is proven on qbraid's CPU backend, it is time to scale.
 
-**The Migration:** Provision an instance on Brev.dev. You must select a specific NVIDIA GPU architecture (we recommend starting with an L4 or T4) to serve as your target backend.
+**The Migration:** Provision an instance on Brev. You must select a specific NVIDIA GPU architecture (we recommend starting with an L4 or T4) to serve as your target backend.
 Next, migrate your code, switch your CUDA-Q target to the NVIDIA GPU backend, and begin your acceleration benchmarks.
 
 Optional:  Rewrite your code for the quantum algorithm to exploit additional opportunities for parallelization.  Experiment with different GPUs or multiple GPUs.
