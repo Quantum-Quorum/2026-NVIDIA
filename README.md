@@ -38,9 +38,11 @@ During the duration of the hackathon, you will have access to the new and improv
 
 Congratulations on finishing the first part of the challenge! 
 
-You will now get to run your code on real GPUs using NVIDIA's Brev Platform. Don't worry, you don't need to pay for anything! Once completing phase 1 and your logic is validated, we will provide you with a **$20 Brev coupon code**. 
+You will now get to run your code on real GPUs using NVIDIA's Brev Platform. Don't worry, you don't need to pay for anything! Once completing Phase 1 and your logic is validated, we will provide you with a **$20 Brev coupon code**. 
 
 > Take budget into consideration when selecting a GPU to run your code on. We know it's tempting to select a B300, but selecting more expensive options will burn through your credits significantly faster.
+
+**Good luck. Let the agents build the code, you build the architecture.**
 
 ## Resources
 ### CUDA-Q    
