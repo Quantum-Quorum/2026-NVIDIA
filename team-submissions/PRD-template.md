@@ -15,12 +15,12 @@
 
 ## 1. Team Roles & Responsibilities
 
-| Role | Name | GitHub Handle |
-| :--- | :--- | :--- |
-| **Project Lead** (Architect) | [Name] | [@handle] |
-| **GPU Acceleration PIC** (Builder) | [Name] | [@handle] |
-| **Quality Assurance PIC** (Verifier) | [Name] | [@handle] |
-| **Technical Marketing PIC** (Storyteller) | [Name] | [@handle] |
+| Role | Name | GitHub Handle | Discord Handle
+| :--- | :--- | :--- | :--- |
+| **Project Lead** (Architect) | [Name] | [@handle] | [@handle] |
+| **GPU Acceleration PIC** (Builder) | [Name] | [@handle] | [@handle] |
+| **Quality Assurance PIC** (Verifier) | [Name] | [@handle] | [@handle] |
+| **Technical Marketing PIC** (Storyteller) | [Name] | [@handle] | [@handle] |
 
 ---
 
