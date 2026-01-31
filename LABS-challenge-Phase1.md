@@ -27,7 +27,7 @@ Your first task is to complete the provided scaffolded Jupyter Notebook (`labs_t
 
 Your objective for the remainder of the challenge is to evolve the tutorial code in Milestone 1 into a high-performance, custom solver. You must plan for two specific technical projects:
 
-1. **The Custom Quantum Seed:** Identify and implement a *different* quantum algorithm (e.g., QAOA, VQE, a custom Ansatz, etc.) or a variation of the Counteradiabatic approach to replace the Counterdiabatic approach from Milestone 1.
+1. **The Custom Quantum Seed:** Identify and implement a *different* quantum algorithm (e.g., QAOA, VQE, a custom Ansatz, etc.) or a variation of the Counteradiabatic approach to replace the Counterdiabatic approach from Milestone 1 using CUDA-Q.
 2. **Full GPU Acceleration:** Design a workflow that accelerates **both** the Quantum Algorithm (using CUDA-Q) and the Classical MTS on NVIDIA GPUs.
 
 **Warning:** Do not rush this phase. The Delveriables from Milestone 1 along with the **Product Requirements Document (PRD)** you submit accounts for **40% of your final grade**.
