@@ -17,10 +17,10 @@
 
 | Role | Name | GitHub Handle | Discord Handle |
 | :--- | :--- | :--- | :--- |
-| **Project Lead** (Architect) | Vikramaditya Bansal | [@handle] | [@handle] |
-| **GPU Acceleration PIC** (Builder) | Goutham Arcod | [@handle] | [@handle] |
-| **Quality Assurance PIC** (Verifier) | Aditi Bhat & Sanskrith Singh | [@handle] | [@handle] |
-| **Technical Marketing PIC** (Storyteller) | Rakshitha KV | [@handle] | [@handle] |
+| **Project Lead** (Architect) | Vikramaditya Bansal | [@viksvapourrub] | [@viksvapourrub] |
+| **GPU Acceleration PIC** (Builder) | Goutham Arcod | [@gauthamarcot] | [@neo_the_1_] |
+| **Quality Assurance PIC** (Verifier) | Aditi Bhat & Sanskrith Singh | [@Ad1th1] | [@Ad1th1] |
+| **Technical Marketing PIC** (Storyteller) | Rakshitha KV | [@rakshitha0831] | [@rakshitha0831] |
 
 ---
 
