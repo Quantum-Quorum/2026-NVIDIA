@@ -2,7 +2,7 @@
 
 **Project Name:** Q-LABS-Solv-V1 (Quantum-Enhanced Low Autocorrelation Binary Seeker)
 **Team Name:** QuantumVibes
-**GitHub Repository:** [Insert Link Here]
+**GitHub Repository:** [[Link](https://github.com/Quantum-Quorum/2026-NVIDIA)]
 
 ---
 
@@ -13,7 +13,7 @@
 
 ---
 
-## 1. Team Roles & Responsibilities [You can DM the judges this information instead of including it in the repository]
+## 1. Team Roles & Responsibilities
 
 | Role | Name | GitHub Handle | Discord Handle |
 | :--- | :--- | :--- | :--- |
