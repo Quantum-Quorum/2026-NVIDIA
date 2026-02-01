@@ -1,104 +1,142 @@
-# Product Requirements Document (PRD)
+Product Requirements Document (PRD)
+Project Name: Q-LABS-Solv-V1 (Quantum-Enhanced Low Autocorrelation Binary Seeker) Team Name: QuantumVibes GitHub Repository: [Insert Link Here]
 
-**Project Name:** [e.g., LABS-Solv-V1]
-**Team Name:** [e.g., QuantumVibes]
-**GitHub Repository:** [Insert Link Here]
+Note to Students: The questions and examples provided in the specific sections below are prompts to guide your thinking, not a rigid checklist.
 
----
+Adaptability: If a specific question doesn't fit your strategy, you may skip or adapt it.
 
-> **Note to Students:** > The questions and examples provided in the specific sections below are **prompts to guide your thinking**, not a rigid checklist. 
-> * **Adaptability:** If a specific question doesn't fit your strategy, you may skip or adapt it.
-> * **Depth:** You are encouraged to go beyond these examples. If there are other critical technical details relevant to your specific approach, please include them.
-> * **Goal:** The objective is to convince the reader that you have a solid plan, not just to fill in boxes.
+Depth: You are encouraged to go beyond these examples. If there are other critical technical details relevant to your specific approach, please include them.
 
----
+Goal: The objective is to convince the reader that you have a solid plan, not just to fill in boxes.
 
-## 1. Team Roles & Responsibilities [You can DM the judges this information instead of including it in the repository]
+1. Team Roles & Responsibilities [You can DM the judges this information instead of including it in the repository]
+Role	Name	GitHub Handle	Discord Handle
+Project Lead (Architect)	Vikramaditya Bansal	[@handle]	[@handle]
+GPU Acceleration PIC (Builder)	Goutham Arcod	[@handle]	[@handle]
+Quality Assurance PIC (Verifier)	Aditi Bhat & Sanskrith Singh	[@handle]	[@handle]
+Technical Marketing PIC (Storyteller)	Rakshitha KV	[@handle]	[@handle]
+2. The Architecture
+Owner: Vikramaditya Bansal (Project Lead)
 
-| Role | Name | GitHub Handle | Discord Handle
-| :--- | :--- | :--- | :--- |
-| **Project Lead** (Architect) | [Name] | [@handle] | [@handle] |
-| **GPU Acceleration PIC** (Builder) | [Name] | [@handle] | [@handle] |
-| **Quality Assurance PIC** (Verifier) | [Name] | [@handle] | [@handle] |
-| **Technical Marketing PIC** (Storyteller) | [Name] | [@handle] | [@handle] |
+Choice of Quantum Algorithm
 
----
+Algorithm: Counteradiabatic (CD) Quantum Annealing Simulation via Trotterization.
 
-## 2. The Architecture
-**Owner:** Project Lead
+Motivation:
 
-### Choice of Quantum Algorithm
-* **Algorithm:** [Identify the specific algorithm or ansatz]
-    * *Example:* "Quantum Approximate Optimization Algorithm (QAOA) with a hardware-efficient ansatz."
-    * *Example:* "Variational Quantum Eigensolver (VQE) using a custom warm-start initialization."
+Metric-driven: We selected the Counteradiabatic approach because standard QAOA struggles with the "Barren Plateau" problem at higher N. The CD term (H 
+CD
+​	
+ ) suppresses diabatic transitions, allowing us to find the ground state (or near-ground state) with fewer Trotter steps than standard adiabatic evolution requires.
 
-* **Motivation:** [Why this algorithm? Connect it to the problem structure or learning goals.]
-    * *Example (Metric-driven):* "We chose QAOA because we believe the layer depth corresponds well to the correlation length of the LABS sequences."
-    *  Example (Skills-driven):* "We selected VQE to maximize skill transfer. Our senior members want to test a novel 'warm-start' adaptation, while the standard implementation provides an accessible ramp-up for our members new to quantum variational methods."
-   
+Proven Results: Our initial MVP testing on N=18 (CPU verification) demonstrated that this approach successfully finds the global minimum (Energy 26.0), whereas classical random initialization stagnates at local minima (Energy ~34.0).
 
-### Literature Review
-* **Reference:** [Title, Author, Link]
-* **Relevance:** [How does this paper support your plan?]
-    * *Example:* "Reference: 'QAOA for MaxCut.' Relevance: Although LABS is different from MaxCut, this paper demonstrates how parameter concentration can speed up optimization, which we hope to replicate."
+Literature Review
 
----
+Reference: Scaling advantage in quantum simulation of optimization problems (Ref 2.1 in Lab).
 
-## 3. The Acceleration Strategy
-**Owner:** GPU Acceleration PIC
+Relevance: This paper establishes that quantum-enhanced populations can improve the Time-to-Solution (TTS) scaling for LABS. We aim to replicate the "slope" advantage shown in their results, demonstrating that our hybrid solver scales better than O(1.73 
+N
+ ).
 
-### Quantum Acceleration (CUDA-Q)
-* **Strategy:** [How will you use the GPU for the quantum part?]
-    * *Example:* "After testing with a single L4, we will target the `nvidia-mgpu` backend to distribute the circuit simulation across multiple L4s for large $N$."
- 
+3. The Acceleration Strategy
+Owner: Goutham Arcod (GPU Acceleration PIC)
 
-### Classical Acceleration (MTS)
-* **Strategy:** [The classical search has many opportuntities for GPU acceleration. What will you chose to do?]
-    * *Example:* "The standard MTS evaluates neighbors one by one. We will use `cupy` to rewrite the energy function to evaluate a batch of 1,000 neighbor flips simultaneously on the GPU."
+Quantum Acceleration (CUDA-Q)
 
-### Hardware Targets
-* **Dev Environment:** [e.g., Qbraid (CPU) for logic, Brev L4 for initial GPU testing]
-* **Production Environment:** [e.g., Brev A100-80GB for final N=50 benchmarks]
+Strategy: We employ a tiered execution model to maximize credit efficiency.
 
----
+Phase 1 (Current): We use the qpp-cpu backend for logic verification. This has successfully verified the physics for small instances (N=18) without consuming GPU credits.
 
-## 4. The Verification Plan
-**Owner:** Quality Assurance PIC
+Phase 2 (Planned): For N>30, we will target the nvidia (cuQuantum) backend. The state vector size doubles with every qubit, making CPU simulation intractable. We will utilize NVIDIA A100s to handle the exponential memory requirements.
 
-### Unit Testing Strategy
-* **Framework:** [e.g., `pytest`, `unittest`]
-* **AI Hallucination Guardrails:** [How do you know the AI code is right?]
-    * *Example:* "We will require AI-generated kernels to pass a 'property test' (Hypothesis library) ensuring outputs are always within theoretical energy bounds before they are integrated."
+Classical Acceleration (MTS)
 
-### Core Correctness Checks
-* **Check 1 (Symmetry):** [Describe a specific physics check]
-    * *Example:* "LABS sequence $S$ and its negation $-S$ must have identical energies. We will assert `energy(S) == energy(-S)`."
-* **Check 2 (Ground Truth):**
-    * *Example:* "For $N=3$, the known optimal energy is 1.0. Our test suite will assert that our GPU kernel returns exactly 1.0 for the sequence `[1, 1, -1]`."
+Strategy: Our classical Memetic Tabu Search (MTS) relies on a custom O(N) "Delta Energy" update function in NumPy.
 
----
+Status: Currently validated on CPU.
 
-## 5. Execution Strategy & Success Metrics
-**Owner:** Technical Marketing PIC
+Upgrade Path: For the final benchmark, we plan to implement Batch Evaluation. Instead of flipping 1 bit at a time, we will evaluate the energy delta of all N possible flips in parallel on the GPU using cupy, reducing the local search complexity from serial O(N) to parallel O(1).
 
-### Agentic Workflow
-* **Plan:** [How will you orchestrate your tools?]
-    * *Example:* "We are using Cursor as the IDE. We have created a `skills.md` file containing the CUDA-Q documentation so the agent doesn't hallucinate API calls. The QA Lead runs the tests, and if they fail, pastes the error log back into the Agent to refactor."
+Hardware Targets
 
-### Success Metrics
-* **Metric 1 (Approximation):** [e.g., Target Ratio > 0.9 for N=30]
-* **Metric 2 (Speedup):** [e.g., 10x speedup over the CPU-only Tutorial baseline]
-* **Metric 3 (Scale):** [e.g., Successfully run a simulation for N=40]
+Dev Environment: Qbraid (CPU) - Currently Active. Used for low-cost physics verification (Energy 26.0 confirmed).
 
-### Visualization Plan
-* **Plot 1:** [e.g., "Time-to-Solution vs. Problem Size (N)" comparing CPU vs. GPU]
-* **Plot 2:** [e.g., "Convergence Rate" (Energy vs. Iteration count) for the Quantum Seed vs. Random Seed]
+Production Environment: Brev A100-40GB - Target. Required for final N=40 simulations and tensor network contractions.
 
----
+4. The Verification Plan
+Owner: Aditi Bhat & Sanskrith Singh (Quality Assurance PIC)
 
-## 6. Resource Management Plan
-**Owner:** GPU Acceleration PIC 
+Unit Testing Strategy
 
-* **Plan:** [How will you avoid burning all your credits?]
-    * *Example:* "We will develop entirely on Qbraid (CPU) until the unit tests pass. We will then spin up a cheap L4 instance on Brev for porting. We will only spin up the expensive A100 instance for the final 2 hours of benchmarking."
-    * *Example:* "The GPU Acceleration PIC is responsible for manually shutting down the Brev instance whenever the team takes a meal break."
+Framework: unittest / pytest
+
+AI Hallucination Guardrails:
+
+Physics Constraints: Every solution returned by the AI-generated kernel is checked against the "Merit Factor" limit (N 
+2
+ /2E). If a result implies a Merit Factor >13.0 (theoretical impossibility), the result is flagged as a hallucination/error.
+
+Integer Safety: We enforce strict -1 / 1 integer casting to prevent "floating point drift" (e.g., getting Energy 25 instead of 26) which we identified and fixed during CPU testing.
+
+Core Correctness Checks
+
+Check 1 (Symmetry): The LABS Hamiltonian has Z 
+2
+​	
+ ×Z 
+2
+​	
+  symmetry. We assert that Energy(Sequence) == Energy(-Sequence) and Energy(Sequence) == Energy(Reverse(Sequence)).
+
+Check 2 (Ground Truth N=18):
+
+Requirement: The Global Minimum for N=18 is known to be 26.0.
+
+Test: Our integration test must consistently produce Energy=26.0 for N=18. Any value higher indicates the solver is stuck; any value lower (e.g., 25.0) indicates a broken energy calculation. [Status: PASSED on CPU]
+
+5. Execution Strategy & Success Metrics
+Owner: Rakshitha KV (Technical Marketing PIC)
+
+Agentic Workflow
+
+Plan: We utilize a "Human-in-the-Loop" validation cycle.
+
+Generate: The Architect prompts the AI to generate the physics kernel.
+
+Verify: The QA Lead runs the "Ground Truth" test (Energy=26 check).
+
+Refine: Initial runs showed "Impossible Physics" (Energy 25.0). We traced this to a "Zero Spin" bug in the AI code and refined the prompt to enforce strict binary states.
+
+Success Metrics
+
+Metric 1 (Accuracy): Achieve the global minimum for N=18 (Energy 26) in 100% of production runs. [Status: ACHIEVED]
+
+Metric 2 (Quantum Advantage): Demonstrate a strictly lower initial energy for Quantum Seeding (E 
+start
+​	
+ ≈80 for N=20) compared to Random Seeding (E 
+start
+​	
+ ≈94).
+
+Metric 3 (Scale): Successfully complete a hybrid optimization loop for N=40 within the hackathon time limit.
+
+Visualization Plan
+
+Plot 1: "Energy vs. Generation" waterfall plot. This will visually prove the "Jump Start" effect, where the Quantum (Green) line starts at a lower energy than the Classical (Grey) line.
+
+Plot 2: "Success Rate Histogram." A bar chart showing how often the Quantum solver finds the global minimum vs. how often the Classical solver gets trapped in local minima.
+
+6. Resource Management Plan
+Owner: Goutham Arcod (GPU Acceleration PIC)
+
+Plan: "The Zombie Protocol"
+
+Development: All code logic (MTS class, Energy functions) is built and tested on free CPU tiers (Qbraid/Colab) to verify physics without cost.
+
+Validation: We run the N=18 verification script on the CPU.
+
+Production: We will only spin up the high-cost A100 instance for the final "hero run" (N=40).
+
+Kill Switch: We have implemented a Python try/finally block in our main script that triggers an automatic shutdown when the benchmark completes, ensuring no "zombie" instances burn credits overnight.
